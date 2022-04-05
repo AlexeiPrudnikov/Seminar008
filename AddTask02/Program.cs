@@ -1,5 +1,5 @@
-﻿const int minValue = -2;
-const int maxValue = 2;
+﻿const int minValue = -9;
+const int maxValue = 9;
 const int minSize = 3;
 const int maxSize = 5;
 void FillMatrix(int[,] matrix)
