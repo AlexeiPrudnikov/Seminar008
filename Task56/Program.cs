@@ -24,43 +24,41 @@ void PrintMatrix (int[,] matrix)
         Console.WriteLine();
     }    
 }
-void SortDownRow(int[,] matrix, int row)
+int GetIndexMinSumRow (int[,] matrix)
 {
-    int maxIndex;
-    int temp = 0;
-    for (int i = 0; i < matrix.GetLength(1); i++)
-    {
-        maxIndex = i;
-        for (int j = i + 1; j < matrix.GetLength(1); j++)
-        {
-            if (matrix[row, j] > matrix[row, maxIndex]) maxIndex = j;
-        }
-        if (maxIndex != i)
-        {
-            temp = matrix[row, i];
-            matrix[row, i] = matrix[row, maxIndex];
-            matrix[row, maxIndex] = temp;
-        }
-
-    }
-}
-void SortDownRows(int[,] matrix)
-{
+    int minIndex = 0;
+    int minSumm = 0;
+    int rowSumm = 0;
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        SortDownRow(matrix: matrix, row: i);
-    }
-}
+        rowSumm = 0;
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            rowSumm+= matrix[i, j];
+        }
+        if (i == 0)
+        {
+            minSumm = rowSumm;
+        }
+        else
+        {
+            if (minSumm > rowSumm)
+            {
+                minIndex = i;
+                minSumm = rowSumm;
+            }
+        }
+    }  
+    return minIndex;
 
+}
 Console.Clear();
-Console.WriteLine("==========Задача № 54==========");
-Console.WriteLine("Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.");
+Console.WriteLine("==========Задача № 56==========");
+Console.WriteLine("Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов");
 Random random = new Random();
 int[,] matrix = new int[random.Next(minSize, maxSize), random.Next(minSize, maxSize)];
 Console.WriteLine("Матрица:");
 FillMatrix(matrix);
 PrintMatrix(matrix);
 Console.WriteLine();
-SortDownRows(matrix);
-Console.WriteLine("Матрица с отсортированными по убыванию строками:");
-PrintMatrix(matrix);
+Console.WriteLine($"Индекс строки с минимальной суммой элементов -> {GetIndexMinSumRow(matrix)}");
